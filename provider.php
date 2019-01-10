@@ -1,10 +1,11 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
     /**
-     * @dataProvider  additionProvider
+     * @dataProvider  additionProviderWithCsvFile
      * @param $a
      * @param $b
      * @param $expected
@@ -13,18 +14,21 @@ class DataTest extends TestCase
     {
         printf(sprintf("%d + %d = %d\n", $a, $b, $expected));
 
-        $this->assertSame($expected, $a + $b);
+        $this->assertSame((int) $expected, $a + $b);
     }
 
-    public function additionProvider(): array
+    public function additionProviderArray(): array
     {
-        //return [
-        //    [0, 0, 0],
-        //    [0, 1, 1],
-        //    [1, 0, 1],
-        //    [1, 1, 2]
-        //];
+        return [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 1, 2],
+        ];
+    }
 
+    public function additionProviderArrayWithKeyString(): array
+    {
         return [
             'adding zeros'  => [0, 0, 0],
             'zero plus one' => [0, 1, 1],
@@ -33,8 +37,13 @@ class DataTest extends TestCase
         ];
     }
 
+    public function additionProviderWithCsvFile(): \CsvFileIterator
+    {
+        return new CsvFileIterator('data.csv');
+    }
+
     /**
-     * @dataProvider subitionProvider
+     * @dataProvider seditionProvider
      * @param $a
      * @param $b
      * @param $expected
@@ -44,13 +53,65 @@ class DataTest extends TestCase
         $this->assertSame($expected, $a - $b);
     }
 
-    public function subitionProvider(): array
+    public function seditionProvider(): array
     {
         return [
             [0, 0, 0],
             [0, 1, -1],
             [1, 0, 1],
-            [1, 1, 1]
+            [1, 1, 1],
         ];
+    }
+}
+
+class CsvFileIterator implements Iterator
+{
+    protected $file;
+
+    protected $key = 0;
+
+    protected $current;
+
+    public function __construct($file)
+    {
+        $this->file = fopen($file, 'rb');
+    }
+
+    public function __destruct()
+    {
+        fclose($this->file);
+    }
+
+    public function rewind()
+    {
+        rewind($this->file);
+        $this->current = fgetcsv($this->file);
+        $this->key = 0;
+    }
+
+    public function valid()
+    {
+        return ! feof($this->file);
+    }
+
+    public function key()
+    {
+        return $this->key;
+    }
+
+    public function current()
+    {
+        // Skip header
+        if (0 === $this->key) {
+            $this->next();
+        }
+
+        return $this->current;
+    }
+
+    public function next()
+    {
+        $this->current = fgetcsv($this->file);
+        $this->key++;
     }
 }
