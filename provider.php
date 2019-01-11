@@ -6,6 +6,8 @@ class DataTest extends TestCase
 {
     /**
      * @dataProvider  additionProviderWithCsvFile
+     * @dataProvider additionProviderArray
+     * @dataProvider additionProviderArrayWithKeyString
      * @param $a
      * @param $b
      * @param $expected
