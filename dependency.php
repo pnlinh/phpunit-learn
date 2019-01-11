@@ -37,6 +37,8 @@ class MultipleDependenciesTest extends TestCase
     /**
      * @depends testProducerFirst
      * @depends testProducerSecond
+     * @param $first
+     * @param $second
      */
     public function testConsumer($first, $second)
     {
