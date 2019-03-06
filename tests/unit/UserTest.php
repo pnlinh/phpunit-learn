@@ -5,7 +5,8 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testThatWeCanGetTheFirstName()
+    /** @test */
+    public function that_we_can_get_the_first_name()
     {
         $user = new User;
 
@@ -14,7 +15,7 @@ class UserTest extends TestCase
         $this->assertEquals('pnlinh', $user->getFirstName());
     }
 
-    public function testThatWeCanGetTheLastName()
+    public function test_that_we_can_get_the_last_name()
     {
         $user = new User;
 
@@ -23,7 +24,7 @@ class UserTest extends TestCase
         $this->assertEquals('Pham', $user->getLastName());
     }
 
-    public function testFullNameIsReturned()
+    public function test_full_name_is_returned()
     {
         $user = new User;
 
@@ -33,7 +34,7 @@ class UserTest extends TestCase
         $this->assertEquals('Ngoc Linh Pham', $user->getFullName());
     }
 
-    public function testFirstNameAndLastNameAreTrimed()
+    public function test_first_name_and_last_name_are_trimed()
     {
         $user = new User;
 
@@ -44,7 +45,7 @@ class UserTest extends TestCase
         $this->assertEquals('Pham', $user->getLastName());
     }
 
-    public function testEmailAddressCanSet()
+    public function test_email_address_can_set()
     {
         $user = new User;
 
@@ -53,7 +54,7 @@ class UserTest extends TestCase
         $this->assertEquals('pnlinh1207@gmail.com', $user->getEmail());
     }
 
-    public function testEmailVariablesContainCorrectValues()
+    public function test_email_variables_contain_values()
     {
         $user = new User;
 
