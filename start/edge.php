@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayWeakComparisonTest extends TestCase
 {
-    public function testEqualityTest()
+    public function testEquality()
     {
         $this->assertEquals(
             [1, 2, 3, 4, 5, 6],
