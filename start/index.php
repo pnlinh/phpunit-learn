@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +11,7 @@ class StackTest extends TestCase
         $stack = [];
         $this->assertCount(0, $stack);
 
-        array_push($stack, 'foo');
+        $stack[] = 'foo';
         $this->assertSame('foo', $stack[count($stack) - 1]);
         $this->assertCount(1, $stack);
 
@@ -34,7 +34,7 @@ class StackTest extends TestCase
      */
     public function testPush(array $stack): array
     {
-        array_push($stack, 'foo');
+        $stack[] = 'foo';
         $this->assertSame('foo', $stack[count($stack) - 1]);
         $this->assertNotEmpty($stack);
 
